@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Colors
+source $HOME/.config/sketchybar/colors
+
+SCRIPT='
+SPACE_TITLE=$(yabai -m query --spaces --space | jq .label | tr -d "\"")
+
+sketchybar -m --set title label="$SPACE_TITLE"
+'
+
+# E V E N T S
+sketchybar -m --add event space_changed
+
+# W I N D O W  T I T L E 
+sketchybar -m --add item title left                       \
+	      --subscribe title space_changed		  \
+              --set title script="$SCRIPT"                \
+                label.color="0xFF${COLOR3:1}"             \
+                icon.padding_left=15                      \
+                label.padding_right=15                    \
+                background.padding_left=20                \
+                background.height=24                      \
+                background.color="0x${BACKGROUND:1}"      \
+                background.border_width=1                 \
+                background.border_color="0xFFffb86c"      \

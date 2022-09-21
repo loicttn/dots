@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Colors
+source $HOME/.config/sketchybar/colors
+
+SCRIPT='
+CURRENT_WIFI="$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I)"
+SSID="$(echo "$CURRENT_WIFI" | grep -o "SSID: .*" | sed "s/^SSID: //")"
+CURR_TX="$(echo "$CURRENT_WIFI" | grep -o "lastTxRate: .*" | sed "s/^lastTxRate: //")"
+
+if [ "$SSID" = "" ]; then
+  sketchybar -m --set wifi label="Disconnected"
+else
+  sketchybar -m --set wifi label="$SSID (${CURR_TX}Mbps)"
+fi
+'
+
+sketchybar -m --add item wifi right                                     \
+             --set wifi    update_freq=5                                \
+	        	   background.color="0x${BACKGROUND:1}"         \
+                	   background.border_width=1                    \
+                	   background.border_color="0xFFffb86c"         \
+                	   background.height=24                         \
+                	   label.padding_right=15                       \
+                	   label.padding_left=15                        \
+                	   background.padding_right=15                  \
+                	   label.color="0xFF${COLOR3:1}"                \
+                           script="$SCRIPT"
