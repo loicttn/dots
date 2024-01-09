@@ -4,10 +4,10 @@
 
 sketchybar -m --bar                           \
 position=top                                  \
-height=30                                     \
-margin=20                                     \
-corner_radius=10                              \
-y_offset=10                                   \
+height=26                                     \
+margin=5                                     \
+y_offset=10                                \
+color="0x00000001"                            \
 display=all                                   \
 --default                                     \
 associated_display=1                       

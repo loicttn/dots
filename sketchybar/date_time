@@ -14,7 +14,6 @@ sketchybar -m --add item time right                     \
                background.border_color="0xFFffb86c"     \
                label.padding_right=15                   \
                label.padding_left=15                    \
-               label.color="0xFF${COLOR3:1}"            \
                script="$TIME"                           \
                                                         \
              --add item date right                      \
@@ -24,14 +23,12 @@ sketchybar -m --add item time right                     \
                background.border_color="0xFFffb86c"     \
                label.padding_right=15                   \
                label.padding_left=15                    \
-	       background.padding_right=15              \
-               label.color="0xFF${COLOR3:1}"            \
+	             background.padding_right=15              \
                script="$DATE"                           \
                                                         \
              --add bracket date_time                    \
                time                                     \
                date                                     \
              --set date_time                            \
-               label.color="0xFF${COLOR3:1}"            \
                background.corner_radius=4               \
                background.height=24

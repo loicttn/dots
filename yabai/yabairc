@@ -1,6 +1,9 @@
 # load scriptting adittion
-sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo /opt/homebrew/bin/yabai --load-sa
+
+# disable yabai on first workspace
+yabai -m config --space 1 window_border off
 
 # focus the hoverd window
 # yabai -m config focus_follows_mouse 	     autoraise
@@ -14,6 +17,7 @@ yabai -m config external_bar all:27:0
 # turn off some stuff
 yabai -m config window_shadow              off
 yabai -m config auto_balance               off
+yabai -m config mouse_follow_focus         on
 yabai -m config mouse_follows_focus        on
 
 # opacity based focus (I don't currently use it)
@@ -31,23 +35,23 @@ yabai -m config mouse_modifier             cmd
 # yabai -m config mouse_action2              move
 
 # window border
-yabai -m config window_border 			on
-yabai -m config window_border_width 		1
-yabai -m config active_window_border_width 	5
+yabai -m config window_border 			        on
+yabai -m config window_border_width 		    1
+yabai -m config active_window_border_width 	7
 yabai -m config active_window_border_color 	0xFFffb86c
 yabai -m config normal_window_border_color	0xFF6b5000
 yabai -m config insert_feedback_color      	0xffd75f5f
 
 # window gaps
 yabai -m config layout                     bsp
-yabai -m config top_padding                4
-yabai -m config bottom_padding             9
-yabai -m config left_padding               9
-yabai -m config right_padding              9
-yabai -m config window_gap                 9
+yabai -m config top_padding                20
+yabai -m config bottom_padding             20
+yabai -m config left_padding               20
+yabai -m config right_padding              20
+yabai -m config window_gap                 20
 
 # don't tile unresizable apps
-yabai -m rule --add app="^(Calculator|VLC|System Preferences|Photo Booth|Archive Utility|Python)$" manage=off
+yabai -m rule --add app="^(Dots|dots|Calculator|VLC|System Preferences|Photo Booth|Archive Utility|Python)$" manage=off
 
 # label spaces
 yabai -m space 1 --label home
@@ -62,6 +66,8 @@ yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger yab
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger yabai_window &> /dev/null"
 yabai -m signal --add event=space_changed action="sketchybar -m --trigger space_changed &> /dev/null"
 yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger yabai_window &> /dev/null"
+yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
+yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger title_change &> /dev/null"
 
 # notify when the yabai config finished loading
 echo "yabai configuration loaded.."

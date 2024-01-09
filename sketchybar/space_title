@@ -4,17 +4,28 @@
 source $HOME/.config/sketchybar/colors
 
 SCRIPT='
-SPACE_TITLE=$(yabai -m query --spaces --space | jq .label | tr -d "\"")
+WINDOW_TITLE=$(/opt/homebrew/bin/yabai -m query --windows --window | jq -r ".title")
 
-sketchybar -m --set title label="$SPACE_TITLE"
+if [[ $WINDOW_TITLE = "" ]]; then
+  WINDOW_TITLE=$(/opt/homebrew/bin/yabai -m query --windows --window | jq -r ".app")
+fi
+
+if [[ ${#WINDOW_TITLE} -gt 50 ]]; then
+  WINDOW_TITLE=$(echo "$WINDOW_TITLE" | cut -c 1-50)
+  sketchybar -m --set title label="│ $WINDOW_TITLE"…
+  exit 0
+fi
+
+sketchybar -m --set title label="│ $WINDOW_TITLE"
 '
 
 # E V E N T S
-sketchybar -m --add event space_changed
+sketchybar -m --add event window_focus \
+              --add event title_change
 
 # W I N D O W  T I T L E 
 sketchybar -m --add item title left                       \
-	      --subscribe title space_changed		  \
+              --subscribe title window_focus front_app_switched space_change title_change
               --set title script="$SCRIPT"                \
                 label.color="0xFF${COLOR3:1}"             \
                 icon.padding_left=15                      \

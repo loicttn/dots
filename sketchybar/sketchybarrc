@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#TODO: File issue about why 24 background height on modal indicator works but 25 doesn't
-
 # I N I T 
   # Custom Events
     sh ~/.config/sketchybar/custom_events

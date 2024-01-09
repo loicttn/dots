@@ -44,12 +44,11 @@ sketchybar -m --add item battery right                 \
               script="$BATTERY"                        \
               icon="🔋"                                \
               background.color="0x${BACKGROUND:1}"     \
-	      background.border_width=1                \
-	      background.border_color="0xFFffb86c"     \
+	            background.border_width=1                \
+	            background.border_color="0xFFffb86c"     \
               background.height=24                     \
               label.padding_right=15                   \
               label.padding_left=10                    \
               icon.padding_left=15                     \
               background.padding_left=15               \
-              label.color="0xFF${COLOR3:1}"	       \
 

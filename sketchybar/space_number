@@ -4,22 +4,33 @@
 source $HOME/.config/sketchybar/colors
 
 SCRIPT='
-SPACE_TITLE=$(yabai -m query --spaces --space | jq .index | tr -d "\"")
-
-sketchybar -m --set index label="$SPACE_TITLE"
+sketchybar --set $NAME background.drawing=$SELECTED
 '
 
 # E V E N T S
 sketchybar -m --add event space_changed
 
-# W I N D O W  T I T L E 
-sketchybar -m --add item index left                       \
-	      --subscribe index space_changed		  \
-              --set index script="$SCRIPT"                \
-                label.color="0xFF${COLOR3:1}"             \
-                label.padding_left=5                      \
-                label.padding_right=6                     \
-                background.height=24                      \
-                background.color="0x${BACKGROUND:1}"      \
-                background.border_width=1                 \
-                background.border_color="0xFFffb86c"      \
+SPACE_ICONS=("1 " "2" "3" "4" "5" "6")
+
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid=$(($i+1))
+  sketchybar -m --add space space.$sid left                              \
+	         --subscribe index space_changed		                     \
+             --set space.$sid update_freq=5                              \
+                              associated_space=$sid                      \
+                              icon=${SPACE_ICONS[i]}                     \
+                              icon.padding_left=8                        \
+                              icon.padding_right=8                       \
+                              background.color="0x${BACKGROUND:1}"       \
+                              background.corner_radius=2                 \
+                              background.height=24                       \
+                	            label.padding_right=15                     \
+                	            label.padding_left=15                      \
+                	            background.padding_right=15                \
+                              label.drawing=off                          \
+                              background.border_width=1                    \
+                	            background.border_color="0xFFffb86c"         \
+                              script="$SCRIPT"                            \
+                              click_script="yabai -m space --focus $sid"
+done
